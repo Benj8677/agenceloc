@@ -12,7 +12,7 @@
 <h1 class="display-3 my-5 fw-bold">Nos véhicules</h1>
 {% for vehicule in tabVehicules %}
 
-    <article class="col-3 mx-3 text-center border border-dark my-3 p-3" style="z-index:0;">
+    <article class="col-3 mx-3 text-center border border-secondary my-3 p-3 rounded shadow" style="z-index:0;">
         <a href="{{ path('app_show', {id:vehicule.id}) }}" class="text-decoration-none text-dark"><h2>{{ vehicule.titre }}</h2></a>
         <a href="{{ path('app_show', {id:vehicule.id}) }}" class="text-decoration-none text-dark"><div class="metadata">{{ vehicule.marque }} - {{ vehicule.modele }}</div></a>
         <div class="content" style="min-height:310px;">

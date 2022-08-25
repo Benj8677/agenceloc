@@ -30,17 +30,19 @@ class AdminController extends AbstractController
     // Gestion Véhicule
     
     #[Route('/admin/vehicules', name: "admin_vehicules")]
-    public function adminArticles(VehiculeRepository $repo, EntityManagerInterface $manager)
+    #[Route('/admin/vehicules/{offset}', name: "admin_vehicules")]
+    public function adminArticles(VehiculeRepository $repo, EntityManagerInterface $manager, $offset = 0)
     {
         $champs = $manager->getClassMetadata(Vehicule::class)->getFieldNames();
 
-        //dd($champs); // dump & die
-
-        $vehicules = $repo->findAll();
+        $vehicules = $repo->findBy([], ['date_enregistrement' => 'DESC'], 5, $offset);
+        //$vehicules = $repo->findAll();
 
         return $this->render("admin/admin_vehicules.html.twig", [
             "vehicules" => $vehicules,
-            "champs" => $champs
+            "champs" => $champs,
+            "offset" => $offset+5,
+            "downset" => $offset-5
         ]);
     }
     

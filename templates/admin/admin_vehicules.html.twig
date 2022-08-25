@@ -2,6 +2,9 @@
 
 
 {% block body %}
+
+    <h1>Liste des véhicules</h1>
+
 {% for message in app.flashes('success') %}
         <div class="alert alert-success text-center">{{ message }}</div>
 {% endfor %}
@@ -36,30 +39,71 @@
     {% endfor %}
     </tbody>
 </table>
-
-<div class="">
+<div class="mx-auto">
   <ul class="pagination pagination-sm">
+  {% if offset>5 %}
+    <li class="page-item">
+      <a class="page-link" href="{{ path('admin_vehicules', {offset:downset}) }}">&laquo;</a>
+    </li>
+  {% else %}
     <li class="page-item disabled">
-      <a class="page-link" href="#">&laquo;</a>
+      <a class="page-link" href="{{ path('admin_vehicules', {offset:downset}) }}">&laquo;</a>
     </li>
+  {% endif %}
+  {% if offset==5 %}
     <li class="page-item active">
-      <a class="page-link" href="#">1</a>
+      <a class="page-link" href="{{ path('admin_vehicules', {offset:0}) }}">1</a>
     </li>
+  {% else %}
     <li class="page-item">
-      <a class="page-link" href="#">2</a>
+      <a class="page-link" href="{{ path('admin_vehicules', {offset:0}) }}">1</a>
     </li>
+  {% endif %}
+  {% if offset==10 %}
+    <li class="page-item active">
+      <a class="page-link" href="{{ path('admin_vehicules', {offset:5}) }}">2</a>
+    </li>
+  {% else %}
     <li class="page-item">
-      <a class="page-link" href="#">3</a>
+      <a class="page-link" href="{{ path('admin_vehicules', {offset:5}) }}">2</a>
     </li>
+  {% endif %}
+  {% if offset==15 %}
+    <li class="page-item active">
+      <a class="page-link" href="{{ path('admin_vehicules', {offset:10}) }}">3</a>
+    </li>
+  {% else %}
     <li class="page-item">
-      <a class="page-link" href="#">4</a>
+      <a class="page-link" href="{{ path('admin_vehicules', {offset:10}) }}">3</a>
     </li>
+  {% endif %}
+  {% if offset==20 %}
+    <li class="page-item active">
+      <a class="page-link" href="{{ path('admin_vehicules', {offset:15}) }}">4</a>
+    </li>
+  {% else %}
     <li class="page-item">
-      <a class="page-link" href="#">5</a>
+      <a class="page-link" href="{{ path('admin_vehicules', {offset:15}) }}">4</a>
     </li>
+  {% endif %}
+  {% if offset==25 %}
+    <li class="page-item active">
+      <a class="page-link" href="{{ path('admin_vehicules', {offset:20}) }}">5</a>
+    </li>
+  {% else %}
     <li class="page-item">
-      <a class="page-link" href="#">&raquo;</a>
+      <a class="page-link" href="{{ path('admin_vehicules', {offset:20}) }}">5</a>
     </li>
+  {% endif %}
+  {% if offset>=25 %}
+    <li class="page-item disabled">
+      <a class="page-link" href="{{ path('admin_vehicules', {offset:offset}) }}">&raquo;</a>
+    </li>
+  {% else %}
+    <li class="page-item">
+      <a class="page-link" href="{{ path('admin_vehicules', {offset:offset}) }}">&raquo;</a>
+    </li>
+  {% endif %}
   </ul>
 </div>
 
