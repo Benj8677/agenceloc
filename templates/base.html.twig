@@ -72,11 +72,12 @@
                                     right:0;
                                     bottom:0;
                                     margin: auto;
-                                    display:none;"
+                                    display:none;
+                                    z-index:5;"
                                     id="connect">
                                     <form method="post" action="{{ path('app_login') }}">
     <div class="text-end"><a href="#" onclick="getElementById('connect').style.display='none';getElementById('body').style='background-color: rgba(255, 255, 255, 1);';" class="text-dark pe-auto" onmouseover="cursor:pointer;">Fermé X</a>  </div>
-    <h1 class="h3 mb-3 font-weight-normal">Se connecter</h1>
+    <h1 class="h3 mb-3 font-weight-normal text-primary fw-bold">Se connecter</h1>
     <label for="inputPseudo">Pseudo</label>
     <input type="text" value="" name="pseudo" id="inputPseudo" class="form-control mb-2" autocomplete="username" required autofocus>
     <label for="inputPassword">Mot de passe</label>
@@ -85,7 +86,7 @@
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
-
+    <small class="txt-info">admin / azerty</small><br>
     <button class="btn btn-lg btn-secondary" type="submit">Se connecter</button>
 </form>
                                 </div>
