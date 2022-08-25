@@ -183,19 +183,15 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $debut = $commande->getDateDepart();
-            $fin = $commande->getDateFin();
-            $interval = $debut->diff($fin);
-            if (intval($interval->h)>0)
-            {
-                $interval = intval($interval->d)+1;
-            }
-            else
-            {
-                $interval = intval($interval->d);
-            }
+            $debut = $commande->getDateDepart()->getTimestamp();
+            $fin = $commande->getDateFin()->getTimestamp();
+            $interval = $fin-$debut;
+
+            $interval = ceil($interval/60/60/24);
+
             $prixTotal = $interval * $commande->getVehicule()->getPrixJour();
             $commande->setPrixTotal(ceil($prixTotal));
+
             $manager->persist($commande);
             $manager->flush();
             $this->addFlash('success', "La commande a bien été modifié/ajouté !");

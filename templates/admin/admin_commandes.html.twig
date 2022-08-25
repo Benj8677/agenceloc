@@ -54,7 +54,7 @@
 				<tr class="align-middle">
 					<td scope="row">{{ commande.id }}</td>
                     <td><a href="#" onclick="getElementById('windows{{ commande.vehicule.id }}').style.display=''" class="text-info"><img src="{{ commande.vehicule.photo }}" style="width: 70px;"></a></td>
-					<td>{{ commande.vehicule.titre }}</td>
+					<td><a href="#" onclick="getElementById('windows{{ commande.vehicule.id }}').style.display=''" class="text-dark text-decoration-none">{{ commande.vehicule.titre }}</a></td>
 					<td>{{ commande.dateDepart|date("d/m/Y à H:i") }}</td>
 					<td>{{ commande.dateFin|date("d/m/Y à H:i") }}</td>
 					<td>{{ commande.prixTotal }}
