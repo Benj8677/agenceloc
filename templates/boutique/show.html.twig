@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BlogController!{% endblock %}
+
+{% block body %}
+
+{% for message in app.flashes('success') %}
+        <div class="alert alert-success text-center">{{ message }}</div>
+{% endfor %}
+
+<section class="row articles mx-auto">
+
+
+    <article class="col-md-10 mx-auto text-center border border-dark my-3 p-3">
+        <h2>{{ vehicule.titre }}</h2>
+        <div class="metadata">Marque {{ vehicule.marque }}</div>
+        <div class="metadata">Ajoutée le {{ vehicule.dateEnregistrement|date("d/m/Y") }}</div>
+        <div class="content">
+            <img src="{{ vehicule.photo }}" alt="" class="img-fluid max-width:100%;">
+            <p>{{ vehicule.description|raw }}</p>
+        </div>
+        <div class="metadata">Prix journalier {{ vehicule.prixJour }} €</div>
+        {% if app.user %}
+            <a href="{{ path('app_show', {id:vehicule.id}) }}" class="btn btn-success m-3">Réserver</a>
+        {% else %}
+            <a href="{{ path('app_register') }}" class="btn btn-success m-3">Créer un compte</a>
+            <a href="#" class="btn btn-success m-3" onclick="getElementById('connect').style.display='';getElementById('body').style='background-color: rgba(0, 0, 0, 0.4);';">Se connecter</a>
+        {% endif %}
+    </article>
+
+</section>
+
+{% endblock %}

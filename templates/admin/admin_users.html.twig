@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+{% for message in app.flashes('success') %}
+        <div class="alert alert-success text-center">{{ message }}</div>
+{% endfor %}
+
+
+<table class="table table-hover mt-4">
+    <thread>
+        <tr class="table-dark">
+            <th>id</th>
+            <th>civ</th>
+            <th>nom</th>
+            <th>prenom</th>
+            <th>pseudo</th>
+            <th>email</th>
+            <th>date_enregistrement</th>
+            <th>Edit</th>
+            <th>Suppr</th>
+        </tr>
+    </thread>
+    <tbody>
+    {% for user in users %}
+        <tr class="align-middle">
+            <td scope="row">{{ user.id }}</td>
+            <td>{{ user.civilite }}</td>
+            <td>{{ user.nom }}</td>
+            <td>{{ user.prenom }}</td>
+            <td>{{ user.pseudo }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.dateEnregistrement|date("d/m/Y à H:i") }}</td>
+            <td><a href="{{ path('admin_edit_user', {id:user.id}) }}" class="text-success"><i class="fas fa-edit fa-2x"></i></a></td>
+            <td><a href="{{ path('admin_del_user', {id:user.id}) }}" onclick="return(confirm('Etes-vous certain de vouloir supprimer ce vehicule?'))" class="text-danger"><i class="fas fa-trash fa-2x"></i></a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}

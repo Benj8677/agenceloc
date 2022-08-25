@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Bienvenue chez Agenceloc{% endblock %}</title>
+        <link rel="stylesheet" href="/css/bootstrap.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="/image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="/image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body id="body">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid sticky">
+    <a class="navbar-brand" href="{{ path('app_boutique') }}">Agenceloc</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="{{ path('app_boutique') }}">Accueil
+            <span class="visually-hidden">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('app_liste') }}">Liste des véhicules</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">A propos</a>
+        </li>
+      </ul>
+      <div class="d-flex">
+        <ul class="navbar-nav">
+      {% if app.user %}
+          {% if is_granted("ROLE_ADMIN") %}
+            <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_admin') }}">admin</a>
+            </li>
+          {% endif %}
+            <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_compte') }}">Mon compte</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_logout') }}">déconnection</a>
+            </li>
+      
+      {% else %}
+
+            {# <li class="nav-item">
+            <a class="nav-link" href="#" onclick="getElementById('float').style.display=''">Se connecter</a>
+            </li> #}
+            <li class="nav-item">
+            <a href="#" class="nav-link" onclick="getElementById('connect').style.display='';getElementById('body').style='background-color: rgba(0, 0, 0, 0.4);';">Se connecter</a>
+            </li>
+            <div class="text-center p-3" style="background:white;
+                                    border: solid 1px black;
+                                    width:350px;
+                                    height:300px;
+                                    position:absolute;
+                                    top:40vh;
+                                    left:0;
+                                    right:0;
+                                    bottom:0;
+                                    margin: auto;
+                                    display:none;"
+                                    id="connect">
+                                    <form method="post" action="{{ path('app_login') }}">
+    <div class="text-end"><a href="#" onclick="getElementById('connect').style.display='none';getElementById('body').style='background-color: rgba(255, 255, 255, 1);';" class="text-dark pe-auto" onmouseover="cursor:pointer;">Fermé X</a>  </div>
+    <h1 class="h3 mb-3 font-weight-normal">Se connecter</h1>
+    <label for="inputPseudo">Pseudo</label>
+    <input type="text" value="" name="pseudo" id="inputPseudo" class="form-control mb-2" autocomplete="username" required autofocus>
+    <label for="inputPassword">Mot de passe</label>
+    <input type="password" name="password" id="inputPassword" class="form-control mb-2" autocomplete="current-password" required>
+
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+    <button class="btn btn-lg btn-secondary" type="submit">Se connecter</button>
+</form>
+                                </div>
+            <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
+            </li>
+      {% endif %} 
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+{# <div style="border:2px;width:350px;position:absolute;left:40vh;top:40vh;height:150px;display:none;background-color: rgba(0, 0, 0, 0.6);" id="float">
+<a href="#" onclick="getElementById('float').style.display='none'">X</a>
+<hr>
+
+
+{% include('/boutique/liste.html.twig') %}
+
+
+</div> #}
+
+
+    <div class="container text-center">
+        {% block body %}{% endblock %}
+    </div>
+
+
+        <!-- Footer -->
+<footer class="bg-light text-center ">
+  <!-- Grid container -->
+  <div class="container p-4">
+
+    <!-- Section: Social media -->
+    <section class="mb-4">
+      <!-- Facebook -->
+      <a class="btn btn-primary btn-floating m-1" style="background-color: #3b5998" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
+
+      <!-- Twitter -->
+      <a class="btn btn-primary btn-floating m-1" style="background-color: #55acee" href="#!" role="button"><i class="fab fa-twitter"></i></a>
+
+      <!-- Google -->
+      <a class="btn btn-primary btn-floating m-1" style="background-color: #dd4b39" href="#!" role="button"><i class="fab fa-google"></i></a>
+
+      <!-- Instagram -->
+      <a class="btn btn-primary btn-floating m-1" style="background-color: #ac2bac" href="#!" role="button"><i class="fab fa-instagram"></i></a>
+
+      <!-- Linkedin -->
+      <a class="btn btn-primary btn-floating m-1" style="background-color: #0082ca" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
+      <!-- Github -->
+      <a class="btn btn-primary btn-floating m-1" style="background-color: #333333" href="#!" role="button"><i class="fab fa-github"></i></a>
+    </section>
+    <!-- Section: Social media -->
+
+
+
+
+    <!-- Section: Links -->
+    <section class="">
+      <!--Grid row-->
+      <div class="row">
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Links</h5>
+
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="#!" class="text-dark">Link 1</a>
+            </li>
+            <li>
+              <a href="#!" class="text-dark">Link 2</a>
+            </li>
+            <li>
+              <a href="#!" class="text-dark">Link 3</a>
+            </li>
+            <li>
+              <a href="#!" class="text-dark">Link 4</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Links</h5>
+
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="#!" class="text-dark">Link 1</a>
+            </li>
+            <li>
+              <a href="#!" class="text-dark">Link 2</a>
+            </li>
+            <li>
+              <a href="#!" class="text-dark">Link 3</a>
+            </li>
+            <li>
+              <a href="#!" class="text-dark">Link 4</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Links</h5>
+
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="#!" class="text-dark">Link 1</a>
+            </li>
+            <li>
+              <a href="#!" class="text-dark">Link 2</a>
+            </li>
+            <li>
+              <a href="#!" class="text-dark">Link 3</a>
+            </li>
+            <li>
+              <a href="#!" class="text-dark">Link 4</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Links</h5>
+
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="#!" class="text-dark">Link 1</a>
+            </li>
+            <li>
+              <a href="#!" class="text-dark">Link 2</a>
+            </li>
+            <li>
+              <a href="#!" class="text-dark">Link 3</a>
+            </li>
+            <li>
+              <a href="#!" class="text-dark">Link 4</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </section>
+    <!-- Section: Links -->
+
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+    © 2020 Copyright:
+    <a class="text-dark" href="#">Agenceloc</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+
+    </body>
+</html>

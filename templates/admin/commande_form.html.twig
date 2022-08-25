@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<h1>
+{% if editMode %}
+    Modification d'un utilisateur
+{% else %}
+    Ajout d'un utilisateur
+{% endif %}
+</h1>
+
+{{ form_start(formCommande, {
+    attr:{
+        novalidate: 'novalidate'
+    }
+}) }}
+
+{{ form_row(formCommande.vehicule) }}
+{{ form_row(formCommande.date_depart) }}
+{{ form_row(formCommande.date_fin) }}
+{{ form_row(formCommande.user) }}
+
+{% if editMode %}
+<button type="submit" class="btn btn-secondary mt-2">Enregistrer</button>
+{% else %}
+<button type="submit" class="btn btn-secondary mt-2">Ajouter</button>
+{% endif %}
+
+{{ form_end(formCommande) }}
+
+{% endblock %}

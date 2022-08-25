@@ -1,0 +1,56 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<h1>
+{% if editMode %}
+    Modification d'un utilisateur
+{% else %}
+    Ajout d'un utilisateur
+{% endif %}
+</h1>
+
+{{ form_start(formUser, {
+    attr:{
+        novalidate: 'novalidate'
+    }
+}) }}
+{{ form_row(formUser.pseudo, {
+    label: "Pseudo",
+    attr: {
+        placeholder: "pseudo"
+    }
+}) }}
+{{ form_row(formUser.civilite, {
+    label: "Civilité",
+    attr: {
+        placeholder: "M./Mme"
+    }
+}) }}
+{{ form_row(formUser.nom, {
+    label: "Nom",
+    attr: {
+        placeholder: "nom"
+    }
+}) }}
+{{ form_row(formUser.prenom, {
+    label: "Prénom",
+    attr: {
+        placeholder: "prenom"
+    }
+}) }}
+{{ form_row(formUser.email,{
+    label: "E-mail",
+    attr: {
+        placeholder: "email@mail.com"
+    }
+})  }}
+
+{% if editMode %}
+<button type="submit" class="btn btn-secondary mt-2">Enregistrer</button>
+{% else %}
+<button type="submit" class="btn btn-secondary mt-2">Ajouter</button>
+{% endif %}
+
+{{ form_end(formUser) }}
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue chez Agenceloc{% endblock %}
+
+{% block body %}
+
+<div class="text-center bg-image shadow-1-strong"
+  style="background-image: url('/img/banniere2.jpg');height: 50vh;min-height: 300px;">
+  <div class="display-5 fw-bold text-white mask p-5" style="background-color: rgba(0, 0, 0, 0.6);height: 50vh;min-height: 300px;">
+    <h1 class="display-3 my-5 fw-bold">Bienvenue chez Agenceloc!</h1>
+
+    Location de voiture 24h/24 et 7j/7</div>
+</div>
+
+<section class="col-10 mx-auto">
+    <div class="container my-4">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam repellat debitis, totam laboriosam, exercitationem repudiandae a quaerat, asperiores quasi cupiditate natus. Cum perferendis quis similique enim odit architecto voluptatibus molestiae?
+    Enim eius quod qui laudantium, ullam eos sapiente, commodi facere deleniti doloremque minima omnis recusandae laboriosam sit. Magnam earum distinctio non molestias? Corrupti eligendi nesciunt cupiditate nobis aut id rem?
+    </div>
+</section>
+<section class="row articles mb-5">
+
+{% for vehicule in tabVehicules %}
+
+    <div class="card col-3 mx-auto text-center my-3 p-3 border-white">
+        <h2>{{ vehicule.titre }}</h2>
+        <div class="content">
+            <img src="{{ vehicule.photo }}" alt="" class="img-fluid max-width:100%;">
+            <a href="{{ path('app_show', {id:vehicule.id}) }}" class="btn btn-primary stretched-link">Détail du véhicule</a>
+        </div>
+    </div>
+
+{% endfor %}
+</section>
+{% endblock %}

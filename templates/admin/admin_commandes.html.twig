@@ -1,0 +1,77 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-success text-center">{{ message }}</div>
+	{% endfor %}
+
+	<a href="{{ path('admin_new_commande') }}" class="btn btn-success my-2">Ajouter une commande</a>
+
+	<table class="table table-hover">
+		<thread>
+			<tr class="table-dark">
+				<th>id</th>
+				<th colspan="2">véhicule</th>
+				<th>date début</th>
+				<th>date fin</th>
+				<th>Prix Total</th>
+				<th>utilisateur</th>
+				<th>date_enregistrement</th>
+				<th>Edit</th>
+				<th>Suppr</th>
+			</tr>
+		</thread>
+		<tbody>
+			{% for commande in commandes %}
+				<div style="background:white;
+					                                    border: solid 1px black;
+					                                    width:350px;
+					                                    height:400px;
+					                                    position:absolute;
+					                                    top:10vh;
+					                                    left:0;
+					                                    right:0;
+					                                    bottom:0;
+					                                    margin: auto;
+					                                    display:none;" id="windows{{ commande.vehicule.id }}">
+                    <div class="text-end"><a href="#" onclick="getElementById('windows{{ commande.vehicule.id }}').style.display='none';" class="text-dark pe-auto" onmouseover="cursor:pointer;">Fermé X</a>  </div>
+                    <h2>{{ commande.vehicule.titre }}</h2>
+					<div class="metadata">Marque
+						{{ commande.vehicule.marque }}</div>
+					<div class="content">
+						<img src="{{ commande.vehicule.photo }}" alt="" class="img-fluid max-width:100%;">
+						<p>{{ commande.vehicule.description|raw }}</p>
+					</div>
+					<div class="metadata">Prix journalier
+						{{ commande.vehicule.prixJour }}
+						€</div>
+
+				</div>
+				<tr class="align-middle">
+					<td scope="row">{{ commande.id }}</td>
+                    <td><a href="#" onclick="getElementById('windows{{ commande.vehicule.id }}').style.display=''" class="text-info"><img src="{{ commande.vehicule.photo }}" style="width: 70px;"></a></td>
+					<td>{{ commande.vehicule.titre }}</td>
+					<td>{{ commande.dateDepart|date("d/m/Y à H:i") }}</td>
+					<td>{{ commande.dateFin|date("d/m/Y à H:i") }}</td>
+					<td>{{ commande.prixTotal }}
+						€</td>
+					<td>{{ commande.user.pseudo }}</td>
+					<td>{{ commande.dateEnregistrement|date("d/m/Y à H:i:s") }}</td>
+					<td>
+						<a href="{{ path('admin_edit_commande', {id:commande.id}) }}" class="text-success">
+							<i class="fas fa-edit fa-2x"></i>
+						</a>
+					</td>
+					<td>
+						<a href="{{ path('admin_del_commande', {id:commande.id}) }}" onclick="return(confirm('Etes-vous certain de vouloir supprimer ce vehicule?'))" class="text-danger">
+							<i class="fas fa-trash fa-2x"></i>
+						</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+
+{% endblock %}

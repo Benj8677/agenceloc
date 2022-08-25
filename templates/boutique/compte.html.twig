@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compte : {{ user.pseudo }}{% endblock %}
+
+{% block body %}
+
+<section class="row articles">
+    <article class="col-md-8 mx-auto text-center border border-dark mb-3 p-3 mt-3 mr-1">
+        <h2>{{ user.pseudo }}</h2>
+        <div class="metadata">Bonjour, {{ user.nom }} {{ user.prenom }}</div>
+        <div class="metadata">{{ user.email }}</div>
+    </article>
+</section>
+
+<section id="commentaires" class="col-8 mx-auto">
+    <h2 class="text-center m-3">Vos Commandes</h2>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Fait le</th>
+                <th>Véhicule</th>
+                <th>Départ</th>
+                <th>Fin</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for commande in user.commandes %}
+            <tr class="align-middle">
+                <td scope="row">{{ commande.dateEnregistrement|date("d/m/Y à H:i") }}</td>
+                <td><img src="{{ commande.vehicule.photo }}" style="width: 70px;">{{ commande.vehicule.titre }}</td>
+                <td>{{ commande.dateDepart|date("d/m/Y à H:i") }}</td>
+                <td>{{ commande.dateFin|date("d/m/Y à H:i") }}</td>
+                <td>{{ commande.prixTotal }}</td>
+            </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

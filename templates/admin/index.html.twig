@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+<h1 class="display-4 text-center my-4">Administration</h1>
+
+<p class="text-center">Bienvenue sur l'administration de votre site</p>
+
+<a href="{{ path('admin_vehicules') }}" class="col-md-6 btn btn-dark mb-4">Gérer les Vehicules</a>
+<a href="{{ path('admin_users') }}" class="col-md-6 btn btn-dark mb-4">Gérer les Comptes utilisateurs</a>
+<a href="{{ path('admin_commandes') }}" class="col-md-6 btn btn-dark mb-4">Gérer les Commandes</a>
+
+{% endblock %}

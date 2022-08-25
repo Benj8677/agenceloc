@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <h1>Créer votre compte</h1>
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.pseudo) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+
+        {{ form_row(registrationForm.civilite, {
+            label: 'Civilité'
+        }) }}
+
+        {{ form_row(registrationForm.prenom, {
+            label: 'Prénom'
+        }) }}
+        {{ form_row(registrationForm.nom, {
+            label: 'Nom de famille'
+        }) }}
+
+        {{ form_row(registrationForm.email, {
+            label: 'Adresse E-mail'
+        }) }}
+
+
+        <button type="submit" class="btn btn-secondary mb-5">S'inscrire</button>
+    {{ form_end(registrationForm) }}
+{% endblock %}
