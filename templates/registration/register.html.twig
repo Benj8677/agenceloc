@@ -3,6 +3,7 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
+<div class="col-6 mx-auto">
     <h1>Créer votre compte</h1>
 
     {{ form_start(registrationForm) }}
@@ -28,5 +29,5 @@
 
 
         <button type="submit" class="btn btn-secondary mb-5">S'inscrire</button>
-    {{ form_end(registrationForm) }}
+    {{ form_end(registrationForm) }}</div>
 {% endblock %}

@@ -10,14 +10,24 @@
 
 <section class="row articles justify-content-center">
 <h1 class="display-3 my-5 fw-bold">Nos véhicules</h1>
+<div>
+    <form method="GET" id="formTri">
+    <select name="tri" id="tri" onchange="if (getElementById('tri').value!='') { getElementById('formTri').submit(); }">
+    <option value="">Triez par :</option>
+    <option value="prix_jour-ASC">Prix croissant</option>
+    <option value="prix_jour-DESC">Prix décroissant</option>
+    <option value="titre-ASC">Nom du véhicule</option>
+    </select>
+    </form>
+</div>
 {% for vehicule in tabVehicules %}
 
     <article class="col-3 mx-3 text-center border border-secondary my-3 p-3 rounded shadow" style="z-index:0;">
         <a href="{{ path('app_show', {id:vehicule.id}) }}" class="text-decoration-none text-dark"><h2>{{ vehicule.titre }}</h2></a>
         <a href="{{ path('app_show', {id:vehicule.id}) }}" class="text-decoration-none text-dark"><div class="metadata">{{ vehicule.marque }} - {{ vehicule.modele }}</div></a>
-        <div class="content" style="min-height:310px;">
+        <div class="content" style="min-height:250px;">
             <a href="{{ path('app_show', {id:vehicule.id}) }}"><img src="{{ vehicule.photo }}" alt="" class="img-fluid max-width:100%;"></a>
-            <a href="{{ path('app_show', {id:vehicule.id}) }}" class="text-decoration-none text-dark"><p>{{ vehicule.description|slice(0,128)|raw }}</p></a>
+            <a href="{{ path('app_show', {id:vehicule.id}) }}" class="text-decoration-none text-dark"><p>{{ vehicule.description|slice(0,64)|raw }}</p></a>
             
         </div><a href="{{ path('app_show', {id:vehicule.id}) }}" class="btn btn-primary">Détail</a>
     </article>
