@@ -8,6 +8,9 @@
 	{% for message in app.flashes('success') %}
 		<div class="alert alert-success text-center">{{ message }}</div>
 	{% endfor %}
+	{% for message in app.flashes('error') %}
+		<div class="alert alert-success text-warning">{{ message }}</div>
+	{% endfor %}
 
 	<a href="{{ path('admin_new_commande') }}" class="btn btn-success my-2">Ajouter une commande</a>
 
@@ -38,7 +41,7 @@
 					                                    bottom:0;
 					                                    margin: auto;
 					                                    display:none;" id="windows{{ commande.vehicule.id }}">
-                    <div class="text-end"><a href="#" onclick="getElementById('windows{{ commande.vehicule.id }}').style.display='none';" class="text-dark pe-auto" onmouseover="cursor:pointer;">Fermé X</a>  </div>
+                    <div class="text-end"><a href="#" onclick="getElementById('windows{{ commande.vehicule.id }}').style.display='none';" class="text-dark pe-auto">Fermé X</a>  </div>
                     <h2>{{ commande.vehicule.titre }}</h2>
 					<div class="metadata">Marque
 						{{ commande.vehicule.marque }}</div>
@@ -51,6 +54,29 @@
 						€</div>
 
 				</div>
+				<div style="background:white;
+					                                    border: solid 1px black;
+					                                    width:350px;
+					                                    height:200px;
+					                                    position:absolute;
+					                                    top:10vh;
+					                                    left:0;
+					                                    right:0;
+					                                    bottom:0;
+					                                    margin: auto;
+					                                    display:none;" id="user{{ commande.user.id }}">
+                    <div class="text-end"><a href="#" onclick="getElementById('user{{ commande.user.id }}').style.display='none';" class="text-dark pe-auto">Fermé X</a>  </div>
+                    <h2>{{ commande.user.pseudo }}</h2>
+					<div class="metadata">{{ commande.user.prenom }}
+						{{ commande.user.nom }}</div>
+					<div class="content">
+						<p>{{ commande.user.email }}</p>
+					</div>
+					<div class="metadata">Date inscription
+						{{ commande.user.dateEnregistrement|date("d/m/Y à H:i") }}
+						€</div>
+
+				</div>
 				<tr class="align-middle">
 					<td scope="row">{{ commande.id }}</td>
                     <td><a href="#" onclick="getElementById('windows{{ commande.vehicule.id }}').style.display=''" class="text-info"><img src="{{ commande.vehicule.photo }}" style="width: 70px;"></a></td>
@@ -59,7 +85,7 @@
 					<td>{{ commande.dateFin|date("d/m/Y à H:i") }}</td>
 					<td>{{ commande.prixTotal }}
 						€</td>
-					<td>{{ commande.user.pseudo }}</td>
+					<td><a href="#" onclick="getElementById('user{{ commande.user.id }}').style.display=''" class="text-dark text-decoration-none">{{ commande.user.pseudo }}</a></td>
 					<td>{{ commande.dateEnregistrement|date("d/m/Y à H:i:s") }}</td>
 					<td>
 						<a href="{{ path('admin_edit_commande', {id:commande.id}) }}" class="text-success">

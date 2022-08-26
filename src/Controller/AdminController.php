@@ -185,17 +185,26 @@ class AdminController extends AbstractController
         {
             $debut = $commande->getDateDepart()->getTimestamp();
             $fin = $commande->getDateFin()->getTimestamp();
-            $interval = $fin-$debut;
+            if ($debut<$fin)
+            {
 
-            $interval = ceil($interval/60/60/24);
+                $interval = $fin-$debut;
 
-            $prixTotal = $interval * $commande->getVehicule()->getPrixJour();
-            $commande->setPrixTotal(ceil($prixTotal));
+                $interval = ceil($interval/60/60/24);
 
-            $manager->persist($commande);
-            $manager->flush();
-            $this->addFlash('success', "La commande a bien été modifié/ajouté !");
-            return $this->redirectToRoute("admin_commandes");
+                $prixTotal = $interval * $commande->getVehicule()->getPrixJour();
+                $commande->setPrixTotal(ceil($prixTotal));
+
+                $manager->persist($commande);
+                $manager->flush();
+                $this->addFlash('success', "La commande a bien été modifié/ajouté !");
+                return $this->redirectToRoute("admin_commandes");
+            }
+            else
+            {
+                $this->addFlash('error', "Vos dates de réservation sont invalide !");
+                return $this->redirectToRoute("app_compte");
+            }
         }
 
         return $this->renderForm("admin/commande_form.html.twig", [
