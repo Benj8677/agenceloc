@@ -25,6 +25,12 @@ class BoutiqueController extends AbstractController
         ]);
     }
 
+    #[Route('/about', name: 'app_about')]
+    public function about(): Response
+    {
+        return $this->render('boutique/about.html.twig');
+    }
+
     #[Route('/compte', name: 'app_compte')]
     public function compte(): Response
     {
