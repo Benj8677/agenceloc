@@ -11,25 +11,32 @@
 <section class="row articles mx-auto">
 
 
-    <article class="col-md-10 mx-auto text-center border border-dark my-3 p-3">
+    <article class="col-md-8 mx-auto text-center border border-dark my-3 p-3">
         <h2>{{ vehicule.titre }}</h2>
         <div class="metadata">Marque {{ vehicule.marque }}</div>
         <div class="metadata">Ajoutée le {{ vehicule.dateEnregistrement|date("d/m/Y") }}</div>
         <div class="content">
-            <img src="{{ vehicule.photo }}" alt="" class="img-fluid max-width:100px;">
+            <img src="{{ vehicule.photo }}" alt="" class="img-fluid" style="max-width:250px;">
         </div>
         <div class="metadata">Prix journalier {{ vehicule.prixJour }} €</div>
         {% if app.user %}
 
+	{% for message in app.flashes('error') %}
+		<div class="alert alert-warning text-center">{{ message }}</div>
+	{% endfor %}
 
+
+        <div class="col-4 mx-auto my-4">
         {{ form_start(formResa, {
             attr:{
                 novalidate: 'novalidate'
             }
         }) }}
 
-        {{ form_row(formResa.date_depart) }}
-        {{ form_row(formResa.date_fin) }}
+        {{ form_row(formResa.dateDebut) }}
+        {{ form_row(formResa.heureDebut) }}
+        {{ form_row(formResa.dateRetour) }}
+        {{ form_row(formResa.heureRetour) }}
 
         <button type="submit" class="btn btn-secondary mt-2 mb-5">Réserver</button>
 
@@ -40,6 +47,8 @@
             <a href="{{ path('app_register') }}" class="btn btn-success m-3">Créer un compte</a>
             <a href="#" class="btn btn-success m-3" onclick="getElementById('connect').style.display='';getElementById('body').style='background-color: rgba(0, 0, 0, 0.4);';">Se connecter</a>
         {% endif %}
+
+        </div>
     </article>
 
 </section>

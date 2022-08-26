@@ -89,8 +89,18 @@ class BoutiqueController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $debut = $commande->getDateDepart()->getTimestamp();
-            $fin = $commande->getDateFin()->getTimestamp();
+            $dateD = $form->get("dateDebut")->getData()->getTimestamp();
+            $dateR = $form->get("dateRetour")->getData()->getTimestamp();
+            $hD = $form->get("heureDebut")->getData()*60*60;
+            $hR = $form->get("heureRetour")->getData();
+            
+
+            $debut = $dateD + $hD;
+            $fin = $dateR + $hR;
+
+
+            //$debut = $commande->getDateDepart()->getTimestamp();
+            //$fin = $commande->getDateFin()->getTimestamp();
             if ($debut<$fin)
             {
                 $interval = $fin-$debut;
@@ -99,7 +109,13 @@ class BoutiqueController extends AbstractController
 
                 $prixTotal = $interval * $commande->getVehicule()->getPrixJour();
                 $commande->setPrixTotal(ceil($prixTotal));
-                
+
+                $debut = (new \DateTime())->setTimestamp($debut);
+                $fin = (new \DateTime())->setTimestamp($fin);
+    
+                $commande->setDateDepart($debut);
+                $commande->setDateFin($fin);
+                    
                 $manager->persist($commande);
                 $manager->flush();
                 $this->addFlash('success', "Votre réservation a été enregistré !");
@@ -108,7 +124,9 @@ class BoutiqueController extends AbstractController
             else
             {
                 $this->addFlash('error', "Vos dates de réservation sont invalide !");
-                return $this->redirectToRoute("app_compte");
+                return $this->redirectToRoute("app_resa",[
+                    "id" => $vehicule->getId()
+                ]);
             }
         }
         

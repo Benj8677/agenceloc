@@ -30,6 +30,9 @@
             <a href="{{ path('app_show', {id:vehicule.id}) }}" class="text-decoration-none text-dark"><p>{{ vehicule.description|slice(0,64)|raw }}</p></a>
             
         </div><a href="{{ path('app_show', {id:vehicule.id}) }}" class="btn btn-primary">Détail</a>
+                {% if app.user %}
+            <a href="{{ path('app_resa', {id:vehicule.id}) }}" class="btn btn-success m-3">Réserver</a>
+                {% endif %}
     </article>
 
 {% endfor %}
