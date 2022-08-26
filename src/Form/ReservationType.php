@@ -16,7 +16,6 @@ class ReservationType extends AbstractType
         $builder
             ->add('dateDebut', DateType::class, [
                 'format' => 'dd-MM-yyyy',
-                'attr' => array('class' => 'date'),
                 'label' => "Départ",
                 'widget' => 'single_text',
                 'mapped' => false,
@@ -25,7 +24,6 @@ class ReservationType extends AbstractType
             ])
             ->add('dateRetour', DateType::class, [
                 'format' => 'dd-MM-yyyy',
-                'attr' => array('class' => 'date'),
                 'label' => "Retour",
                 'widget' => 'single_text',
                 'mapped' => false,
