@@ -16,12 +16,26 @@
         <div class="metadata">Marque {{ vehicule.marque }}</div>
         <div class="metadata">Ajoutée le {{ vehicule.dateEnregistrement|date("d/m/Y") }}</div>
         <div class="content">
-            <img src="{{ vehicule.photo }}" alt="" class="img-fluid max-width:100%;">
-            <p>{{ vehicule.description|raw }}</p>
+            <img src="{{ vehicule.photo }}" alt="" class="img-fluid max-width:100px;">
         </div>
         <div class="metadata">Prix journalier {{ vehicule.prixJour }} €</div>
         {% if app.user %}
-            <a href="{{ path('app_resa', {id:vehicule.id}) }}" class="btn btn-success m-3">Réserver</a>
+
+
+        {{ form_start(formResa, {
+            attr:{
+                novalidate: 'novalidate'
+            }
+        }) }}
+
+        {{ form_row(formResa.date_depart) }}
+        {{ form_row(formResa.date_fin) }}
+
+        <button type="submit" class="btn btn-secondary mt-2 mb-5">Réserver</button>
+
+        {{ form_end(formResa) }}
+
+
         {% else %}
             <a href="{{ path('app_register') }}" class="btn btn-success m-3">Créer un compte</a>
             <a href="#" class="btn btn-success m-3" onclick="getElementById('connect').style.display='';getElementById('body').style='background-color: rgba(0, 0, 0, 0.4);';">Se connecter</a>

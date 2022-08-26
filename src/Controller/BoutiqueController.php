@@ -2,7 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Commande;
+use PHPUnit\TextUI\Command;
+use App\Form\ReservationType;
+use App\Repository\CommandeRepository;
 use App\Repository\VehiculeRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -55,6 +60,54 @@ class BoutiqueController extends AbstractController
 
         
         return $this->renderForm('boutique/show.html.twig', [
+            'vehicule' => $vehicule,
+        ]);
+    }
+
+    #[Route('/reservation/{id}', name: 'app_resa')]
+    public function resa(Request $superglobals, EntityManagerInterface $manager, $id, VehiculeRepository $repo, Command $commande=null): Response
+    {
+        $vehicule =  $repo->find($id);
+
+        if (!$commande)
+        {
+            $commande = new Commande;
+            $commande->setDateEnregistrement(new \DateTime());
+            $commande->setUser($this->getUser());
+            $commande->setVehicule($vehicule);
+        }
+        
+        $form = $this->createForm(ReservationType::class, $commande);
+
+        $form->handleRequest($superglobals);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $debut = $commande->getDateDepart()->getTimestamp();
+            $fin = $commande->getDateFin()->getTimestamp();
+            if ($debut<$fin)
+            {
+                $interval = $fin-$debut;
+
+                $interval = ceil($interval/60/60/24);
+
+                $prixTotal = $interval * $commande->getVehicule()->getPrixJour();
+                $commande->setPrixTotal(ceil($prixTotal));
+                
+                $manager->persist($commande);
+                $manager->flush();
+                $this->addFlash('success', "Votre réservation a été enregistré !");
+                return $this->redirectToRoute("app_compte");
+            }
+            else
+            {
+                $this->addFlash('error', "Vos dates de réservation sont invalide !");
+                return $this->redirectToRoute("app_compte");
+            }
+        }
+        
+        return $this->renderForm('boutique/reservation.html.twig', [
+            'formResa' => $form,
             'vehicule' => $vehicule,
         ]);
     }

@@ -12,6 +12,14 @@
     </article>
 </section>
 
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-success text-center">{{ message }}</div>
+	{% endfor %}
+
+	{% for message in app.flashes('error') %}
+		<div class="alert alert-warning text-center">{{ message }}</div>
+	{% endfor %}
+
 <section id="commentaires" class="col-8 mx-auto">
     <h2 class="text-center m-3">Vos Commandes</h2>
     <table class="table table-hover">
